@@ -12,15 +12,15 @@ class elk {
   }
 
 
-  include ::java
-  class { 'elasticsearch':
-    jvm_options => ['-Xms256m','-Xmx256m']  
+  include ::java                            #Since Elasticsearch depends on Java
+  class { 'elasticsearch':  
+    jvm_options => ['-Xms256m','-Xmx256m']  #Configuring memory to be small for demo  
   }
-  elasticsearch::instance { 'es-01': }
+  elasticsearch::instance { 'es-01': }      #Defining the instance
 
   class {'kibana': 
     config => {
-      'server.host' => '0.0.0.0'
+      'server.host' => '0.0.0.0'            #To make is accessible from all networks
     }
   }
 }
