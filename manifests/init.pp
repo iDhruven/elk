@@ -25,3 +25,6 @@ class elk {
   }
 }
 }
+
+include elk::filebeat
+
