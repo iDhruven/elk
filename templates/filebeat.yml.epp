@@ -1,2 +1,17 @@
+<% if $prospectors { -%>
+filebeat.prospectors:
+<% $prospectors.each \$p\ { -%>
+  - type: <%= $p['type'] %>
+    enabled: true
+    paths:
+    <% $p['paths'].each |$path| { -%>
+      - <%= $path %>
+    <% } -%>
+      - /var/log/puppetlabs/puppetserver/puppetserver.log.json
+      - /var/log/puppetlabs/pupperserver/puppetserver-acess.log.json
+    json.keys_under_root: <%= $p ['json.keys_under_root'] %>
+<% } -%>
+<% } -%>
+
 output.logstash:
   hosts:["<%= $logstash_server %>:<%= $logstash_port %>"]
